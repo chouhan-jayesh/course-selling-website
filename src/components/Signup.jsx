@@ -2,8 +2,11 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
+import { useState } from "react";
 
 function Signup() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <div>
       <div
@@ -16,10 +19,12 @@ function Signup() {
       >
         <Typography variant="h4">Welcome to Coursera.</Typography>
       </div>
-      <div style={{
-        display: "flex",
-        justifyContent: "center"
-      }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Card
           variant="outlined"
           style={{
@@ -28,50 +33,58 @@ function Signup() {
           }}
         >
           <TextField
+            onChange={(e) => {
+              console.log(e);
+              setEmail(e.target.value);
+            }}
             fullWidth={true}
-            id="username"
+            // id="username"
             label="Email"
             variant="outlined"
           />
           <br />
           <br />
           <TextField
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             fullWidth={true}
-            id="password"
+            // id="password"
             label="Password"
             variant="outlined"
             type={"password"}
           />
           <br />
           <br />
-          <Button size="medium" variant="contained"
-          onClick={() => {
-            let username = document.getElementById("username").value;
-            let password = document.getElementById("password").value;
-            fetch("http://localhost:3000/admin/signup", {
-                method: 'POST',
+          <Button
+            size="medium"
+            variant="contained"
+            onClick={() => {
+              fetch("http://localhost:3000/admin/signup", {
+                method: "POST",
                 body: JSON.stringify({
-                    username,
-                    password
-                })
-            })
-          }}>
+                  username: email,
+                  password: password,
+                }),
+                headers: {
+                  "Content-type": "application/json",
+                },
+              }).then((res) => {
+                console.log(res);
+                res.json().then((data) => {
+                    // storing token in localstorgae
+                    localStorage.setItem("token", data.token);
+                  console.log(data);
+                });
+              });
+            }}
+          >
             Sign Up
           </Button>
-        </Card> 
+        </Card>
       </div>
     </div>
   );
 }
 
 export default Signup;
-
-
-
-// <div
-//           style={{
-//             width: "100vw",
-//             height: "100vh",
-//             backgroundColor: "#bfbfbf",
-//           }}
-//         ></div>

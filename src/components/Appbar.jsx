@@ -10,7 +10,15 @@ function Appbar() {
       }}
     >
       <div>
-        <Typography variant="h5">Coursera</Typography>
+        <Typography
+          type="link"
+          onClick={() => {
+            window.location = "/";
+          }}
+          variant="h5"
+        >
+          Coursera
+        </Typography>
       </div>
       <div>
         <Button
