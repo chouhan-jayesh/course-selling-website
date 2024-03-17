@@ -1,7 +1,8 @@
 import { Button, Typography } from "@mui/material";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function Appbar() {
+    const navigate = useNavigate()
   return (
     <div
       style={{
@@ -13,7 +14,8 @@ function Appbar() {
         <Typography
           type="link"
           onClick={() => {
-            window.location = "/";
+            navigate("/")
+            // window.location = "/";
           }}
           variant="h5"
         >
@@ -26,7 +28,8 @@ function Appbar() {
           variant="contained"
           style={{ marginRight: 10 }}
           onClick={() => {
-            window.location = "/signup";
+            navigate("/signup")
+            // window.location = "/signup";
           }}
         >
           Sign Up
@@ -35,7 +38,8 @@ function Appbar() {
           size="medium"
           variant="contained"
           onClick={() => {
-            window.location = "/login";
+            navigate("/login")
+            // window.location = "/login";
           }}
         >
           Sign In

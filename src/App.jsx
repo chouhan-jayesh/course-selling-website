@@ -7,13 +7,15 @@ import Addcourse from "./components/Addcourse.jsx";
 
 function App() {
   return (
-    <div style={{
-        width:'100vw',
-        height:'100vh',
-        backgroundColor: "#f0f0f0"
-    }}>
-        <Appbar />
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#f0f0f0",
+      }}
+    >
       <Router>
+        <Appbar />
         <Routes>
           <Route path="/" element={<Homepage />}></Route>
           <Route path="/addcourse" element={<Addcourse />}></Route>

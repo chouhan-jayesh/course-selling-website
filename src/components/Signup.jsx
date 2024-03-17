@@ -34,7 +34,6 @@ function Signup() {
         >
           <TextField
             onChange={(e) => {
-              console.log(e);
               setEmail(e.target.value);
             }}
             fullWidth={true}
