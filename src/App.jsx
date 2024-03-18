@@ -4,6 +4,8 @@ import Signin from "./components/Signin.jsx";
 import Signup from "./components/Signup.jsx";
 import Homepage from "./components/Homepage.jsx";
 import Addcourse from "./components/Addcourse.jsx";
+import Courses from "./components/Courses.jsx";
+import Course from "./components/Course.jsx";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Appbar />
         <Routes>
           <Route path="/" element={<Homepage />}></Route>
+          <Route path="/courses" element={<Courses />}></Route>
+          <Route path="/course/:courseId" element={<Course />}></Route>
           <Route path="/addcourse" element={<Addcourse />}></Route>
           <Route path="/login" element={<Signin />}></Route>
           <Route path="/signup" element={<Signup />}></Route>

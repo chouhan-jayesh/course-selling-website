@@ -73,6 +73,7 @@ function Signup() {
                 res.json().then((data) => {
                     // storing token in localstorgae
                     localStorage.setItem("token", data.token);
+                    window.location = "/"
                   console.log(data);
                 });
               });

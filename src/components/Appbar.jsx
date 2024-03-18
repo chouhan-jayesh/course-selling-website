@@ -1,8 +1,72 @@
 import { Button, Typography } from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function Appbar() {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState(null);
+
+  useEffect(() => {
+    function callback2(data) {
+      if (data.username) {
+        setUserEmail(data.username);
+      }
+    }
+    function callback1(res) {
+      // console.log("callback1")
+      res.json().then(callback2);
+    }
+    fetch("http://localhost:3000/admin/me", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }).then(callback1);
+  }, []);
+
+  if (userEmail) {
+    return (
+      <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <div>
+            <Typography
+              type="link"
+              onClick={() => {
+                navigate("/");
+                // window.location = "/";
+              }}
+              variant="h5"
+            >
+              Coursera
+            </Typography>
+          </div>
+          <div>
+            {userEmail}
+          </div>
+          <div>
+            <Button
+              size="medium"
+              variant="contained"
+              style={{ marginRight: 10 }}
+              onClick={() => {
+                localStorage.setItem('token', null);
+                // navigate("/signup");
+                window.location = "/signup";
+              }}
+            >
+              Logout
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       style={{
@@ -14,7 +78,7 @@ function Appbar() {
         <Typography
           type="link"
           onClick={() => {
-            navigate("/")
+            navigate("/");
             // window.location = "/";
           }}
           variant="h5"
@@ -28,7 +92,7 @@ function Appbar() {
           variant="contained"
           style={{ marginRight: 10 }}
           onClick={() => {
-            navigate("/signup")
+            navigate("/signup");
             // window.location = "/signup";
           }}
         >
@@ -38,7 +102,7 @@ function Appbar() {
           size="medium"
           variant="contained"
           onClick={() => {
-            navigate("/login")
+            navigate("/login");
             // window.location = "/login";
           }}
         >
