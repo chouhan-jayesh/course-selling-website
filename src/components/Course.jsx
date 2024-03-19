@@ -21,8 +21,47 @@ const Course = () => {
     });
   }, []);
 
+  let course = null;
+  for( let i = 0; i < courses.length; i++ ) {
+    if(courses[i].id  == courseId) {
+        course = courses[i]
+    }
+  }
+
+  if (!course) {
+    return <div>
+        Loading...
+    </div>
+  }
+
   return <div>
-    { courseId }
+     <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        margin: "1em auto",
+      }}
+    >
+      <Card
+        style={{
+          // border: "2px solid black",
+          margin: 10,
+          width: 300,
+          minHeight: 200,
+          padding: "20px",
+        }}
+      >
+        <Typography variant="h4" textAlign={"center"}>
+          {course.title} <br />
+        </Typography>
+        <Typography textAlign={"center"}>
+          {course.description} <br />
+        </Typography>
+        <img src={course.imageLink} style={{ width: 300 }} />
+      </Card>
+    </div>
+    
   </div>;
 };
 
