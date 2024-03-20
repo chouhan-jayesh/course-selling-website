@@ -44,6 +44,7 @@ function UpdateCard(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const course = props.course;
   return (
     <div>
       <Card
@@ -91,7 +92,7 @@ function UpdateCard(props) {
           size="medium"
           variant="contained"
           onClick={() => {
-            fetch("http://localhost:3000/admin/courses" + course.id, {
+            fetch("http://localhost:3000/admin/courses/" + course.id, {
               method: "PUT",
               body: JSON.stringify({
                 title: title,
@@ -107,7 +108,7 @@ function UpdateCard(props) {
               console.log(res);
               res.json().then((data) => {
                 // storing token in localstorgae
-                alert("Course added!");
+                alert("Course updated!");
               });
             });
           }}
