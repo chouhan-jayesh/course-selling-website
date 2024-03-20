@@ -35,7 +35,7 @@ const Course = () => {
   return (
     <div>
       <CourseCard course={course} />
-      <UpdateCard course={course}/>
+      <UpdateCard courses={courses} course={course} setCourses={setCourses}/>
     </div>
   );
 };
@@ -46,7 +46,10 @@ function UpdateCard(props) {
   const [image, setImage] = useState("");
   const course = props.course;
   return (
-    <div>
+    <div style={{
+        display: "flex",
+        justifyContent: "center",
+    }}>
       <Card
         variant="outlined"
         style={{
@@ -107,8 +110,20 @@ function UpdateCard(props) {
             }).then((res) => {
               console.log(res);
               res.json().then((data) => {
-                // storing token in localstorgae
-                alert("Course updated!");
+                let updatedCourses = [];
+                for (let i = 0; i < props.courses.length; i++) {
+                    if (props.courses[i].id == course.id) {
+                        updatedCourses.push({
+                            id : course.id,
+                            title: title,
+                            description: description,
+                            imageLink: image
+                        })
+                    } else {
+                        updatedCourses.push(props.courses[i]);
+                    }
+                }
+                props.setCourses(updatedCourses);
               });
             });
           }}
@@ -126,8 +141,7 @@ function CourseCard(props) {
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
+        justifyContent: "center",
         margin: "1em auto",
       }}
     >
