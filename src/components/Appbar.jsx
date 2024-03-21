@@ -47,7 +47,7 @@ function Appbar() {
             </Typography>
           </div>
           <div>
-            {userEmail}
+            <Typography>Hello, {userEmail}</Typography>
           </div>
           <div>
             <Button
@@ -55,7 +55,7 @@ function Appbar() {
               variant="contained"
               style={{ marginRight: 10 }}
               onClick={() => {
-                localStorage.setItem('token', null);
+                localStorage.setItem("token", null);
                 // navigate("/signup");
                 window.location = "/signup";
               }}

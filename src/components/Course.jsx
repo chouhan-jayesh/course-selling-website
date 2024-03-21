@@ -29,13 +29,29 @@ const Course = () => {
   }
 
   if (!course) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: "50vh"
+      }}>
+        <Typography variant="h5">Oops! Course not found 😞</Typography>
+      </div>
+    );
   }
 
   return (
-    <div>
+    <div
+      style={{
+        marginTop: "10em",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "between",
+      }}
+    >
       <CourseCard course={course} />
-      <UpdateCard courses={courses} course={course} setCourses={setCourses}/>
+      <UpdateCard courses={courses} course={course} setCourses={setCourses} />
     </div>
   );
 };
@@ -46,10 +62,7 @@ function UpdateCard(props) {
   const [image, setImage] = useState("");
   const course = props.course;
   return (
-    <div style={{
-        display: "flex",
-        justifyContent: "center",
-    }}>
+    <div>
       <Card
         variant="outlined"
         style={{
@@ -57,7 +70,10 @@ function UpdateCard(props) {
           padding: 10,
         }}
       >
-        <Typography> Update Course details </Typography>
+        <Typography variant="h4" style={{ paddingBottom: "10px" }}>
+          {" "}
+          Update Course details{" "}
+        </Typography>
         <TextField
           style={{
             marginBottom: 10,
@@ -95,7 +111,7 @@ function UpdateCard(props) {
           size="medium"
           variant="contained"
           onClick={() => {
-            fetch("http://localhost:3000/admin/courses/" + course.id, {
+            fetch("http://localhost:3000/admin/courses/" + props.courseId, {
               method: "PUT",
               body: JSON.stringify({
                 title: title,
@@ -112,16 +128,16 @@ function UpdateCard(props) {
               res.json().then((data) => {
                 let updatedCourses = [];
                 for (let i = 0; i < props.courses.length; i++) {
-                    if (props.courses[i].id == course.id) {
-                        updatedCourses.push({
-                            id : course.id,
-                            title: title,
-                            description: description,
-                            imageLink: image
-                        })
-                    } else {
-                        updatedCourses.push(props.courses[i]);
-                    }
+                  if (props.courses[i].id == course.id) {
+                    updatedCourses.push({
+                      id: course.id,
+                      title: title,
+                      description: description,
+                      imageLink: image,
+                    });
+                  } else {
+                    updatedCourses.push(props.courses[i]);
+                  }
                 }
                 props.setCourses(updatedCourses);
               });
@@ -138,16 +154,11 @@ function UpdateCard(props) {
 function CourseCard(props) {
   const course = props.course;
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        margin: "1em auto",
-      }}
-    >
+    <div>
       <Card
         style={{
           // border: "2px solid black",
+          height: 268,
           margin: 10,
           width: 300,
           minHeight: 200,
